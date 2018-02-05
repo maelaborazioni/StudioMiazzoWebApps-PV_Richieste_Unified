@@ -1,0 +1,12 @@
+addEmptyValue:1,
+customValues:null,
+dataProviderID1:"descrizione",
+dataProviderID2:"codice",
+dataSource:"db:/ma_richieste/tab_richiestedettaglio",
+name:"vsl_tipo_richiesta",
+relationName:null,
+returnDataProviders:2,
+showDataProviders:1,
+typeid:34,
+uuid:"59BA86A0-ECF0-4542-B511-60321C09E296",
+valueListType:1

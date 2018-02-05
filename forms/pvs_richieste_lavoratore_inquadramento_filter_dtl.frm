@@ -1,0 +1,14 @@
+dataSource:"db:/ma_richieste/lavoratori_richieste",
+extendsID:"8C12D6FC-B3CA-40E8-85F6-5A354E8C794E",
+items:[
+{
+height:480,
+partType:5,
+typeid:19,
+uuid:"81EE2E2C-D29A-49DC-98E3-49756C2995A0"
+}
+],
+name:"pvs_richieste_lavoratore_inquadramento_filter_dtl",
+size:"1000,480",
+typeid:3,
+uuid:"BA0B0366-C7D4-4A14-87F9-1967C08112DF"

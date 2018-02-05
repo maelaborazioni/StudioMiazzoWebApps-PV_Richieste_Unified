@@ -1,0 +1,13 @@
+dataSource:"db:/ma_richieste/lavoratori_richieste",
+extendsID:"8C12D6FC-B3CA-40E8-85F6-5A354E8C794E",
+items:[
+{
+height:480,
+partType:5,
+typeid:19,
+uuid:"E791D471-4D7A-4FBC-B3D2-EE1C2F19F5E9"
+}
+],
+name:"pvs_richieste_decorrenza_lavoratore_filter_dtl",
+typeid:3,
+uuid:"B0DACFA5-6114-4781-B775-098E6041203F"

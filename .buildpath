@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry excluding=".stp/|medias/" kind="src" path=""/>
+	<buildpathentry exported="true" kind="prj" path="/AG_Ditta"/>
+	<buildpathentry exported="true" kind="prj" path="/AG_Lavoratori"/>
+	<buildpathentry exported="true" kind="prj" path="/EW_Giornaliera"/>
+	<buildpathentry exported="true" kind="prj" path="/MA_Shared"/>
+	<buildpathentry exported="true" kind="prj" path="/PV_Shared"/>
+	<buildpathentry exported="true" kind="prj" path="/UI_Shared"/>
+	<buildpathentry exported="true" kind="prj" path="/utility"/>
+</buildpath>

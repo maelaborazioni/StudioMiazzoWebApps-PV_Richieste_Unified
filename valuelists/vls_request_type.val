@@ -1,0 +1,8 @@
+addEmptyValue:1,
+customValues:"Lavoratore singolo|0\r
+Lavoratori multipli|1",
+name:"vls_request_type",
+returnDataProviders:1,
+showDataProviders:1,
+typeid:34,
+uuid:"9DEF12DE-9008-4DF5-8BCF-99C219118F4F"

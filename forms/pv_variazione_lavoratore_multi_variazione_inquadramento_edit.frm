@@ -1,0 +1,14 @@
+dataSource:"db:/ma_richieste/tab_richiestedettagliocondizioni",
+extendsID:"F05702F5-BC90-4AA2-B226-E9346CD63582",
+items:[
+{
+height:480,
+partType:5,
+typeid:19,
+uuid:"C7473A4E-3CC9-489D-843E-792301267D0D"
+}
+],
+name:"pv_variazione_lavoratore_multi_variazione_inquadramento_edit",
+size:"610,480",
+typeid:3,
+uuid:"92B6D363-0AE7-42AE-994A-178C35A0B873"

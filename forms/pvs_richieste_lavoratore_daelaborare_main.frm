@@ -1,0 +1,13 @@
+dataSource:"db:/ma_richieste/lavoratori_richieste",
+extendsID:"DCBE34A2-F6DE-404A-BB5D-DF70ADBEC115",
+items:[
+{
+height:480,
+partType:5,
+typeid:19,
+uuid:"210CD3AF-6D79-49FB-AAB9-A0C3353E6177"
+}
+],
+name:"pvs_richieste_lavoratore_daelaborare_main",
+typeid:3,
+uuid:"40AA8A6E-366E-471C-B29B-9D27C8F4FCE1"

@@ -1,0 +1,12 @@
+addEmptyValue:1,
+customValues:null,
+dataProviderID1:"codice",
+dataProviderID2:"idditta",
+dataSource:"db:/ma_anagrafiche/ditte",
+name:"vls_ditta_codice",
+relationName:null,
+returnDataProviders:2,
+showDataProviders:1,
+typeid:34,
+uuid:"6B51277E-0DB7-4CD4-B04A-B3E1B5BBCE1F",
+valueListType:1

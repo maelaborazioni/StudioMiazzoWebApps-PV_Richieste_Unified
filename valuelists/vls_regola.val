@@ -1,0 +1,12 @@
+addEmptyValue:1,
+customValues:null,
+dataProviderID1:"descrizione",
+dataProviderID2:"idtabrichiestadettagliocondizione",
+dataSource:"db:/ma_richieste/tab_richiestedettagliocondizioni",
+name:"vls_regola",
+relationName:null,
+returnDataProviders:2,
+showDataProviders:1,
+typeid:34,
+uuid:"6435EEA2-445D-45D5-8657-CBC0B6A722BE",
+valueListType:1

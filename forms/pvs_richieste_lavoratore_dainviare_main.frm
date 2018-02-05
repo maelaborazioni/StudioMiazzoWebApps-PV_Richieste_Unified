@@ -1,0 +1,13 @@
+dataSource:"db:/ma_richieste/lavoratori_richieste",
+extendsID:"DCBE34A2-F6DE-404A-BB5D-DF70ADBEC115",
+items:[
+{
+height:480,
+partType:5,
+typeid:19,
+uuid:"B8A3B535-90BF-4397-94A7-64B983F92325"
+}
+],
+name:"pvs_richieste_lavoratore_dainviare_main",
+typeid:3,
+uuid:"AC473CE9-11C4-46F1-B81D-99989AC7D417"

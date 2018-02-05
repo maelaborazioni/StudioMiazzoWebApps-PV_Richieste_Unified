@@ -1,0 +1,7 @@
+allowCreationRelatedRecords:false,
+foreignDataSource:"db:/ma_richieste/lavoratori_richieste",
+joinType:1,
+name:"lavoratori_richieste_to_lavoratori_richieste",
+primaryDataSource:"db:/ma_richieste/lavoratori_richieste",
+typeid:22,
+uuid:"B3AE519A-0B5A-42AE-8BFD-BD304C04A5E3"

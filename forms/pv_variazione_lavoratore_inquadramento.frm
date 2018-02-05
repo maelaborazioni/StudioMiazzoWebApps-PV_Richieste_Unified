@@ -1,0 +1,13 @@
+extendsID:"9086695D-DEE2-4966-8AA5-7635AD1006EE",
+items:[
+{
+height:480,
+partType:5,
+typeid:19,
+uuid:"6B7F696D-597C-4E01-A277-5548E864899F"
+}
+],
+name:"pv_variazione_lavoratore_inquadramento",
+size:"130,480",
+typeid:3,
+uuid:"4A5B2CC7-3E1A-43A8-8954-B88A0C9FD65F"
