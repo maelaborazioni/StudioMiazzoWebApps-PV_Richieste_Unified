@@ -71,6 +71,7 @@ function creaRichiesta(fs, params, callback)
 			for(var f = 1; f <= requestFields.getSize(); f++)
 			{
 				var field 		 = requestFields.getRecord(f);
+				var fieldTypeCode = field.tab_richiestedettagliocampi_to_tab_tipicampo.codice;
 				var dataprovider = field.dataprovider || field.codice;
 									
 				if(fs[dataprovider])
@@ -82,8 +83,13 @@ function creaRichiesta(fs, params, callback)
 					var newRequestDetail 							  = newRequest.lavoratori_richieste_to_lavoratori_richiestecampi.getRecord(newRequest.lavoratori_richieste_to_lavoratori_richiestecampi.newRecord());//requestDetailFs.getRecord(requestDetailFs.newRecord());
 						newRequestDetail.idtabrichiestadettagliocampo = field.idtabrichiestadettagliocampo;
 						newRequestDetail.codice 					  = field.codice;
-						newRequestDetail.valore 					  = parseFloat(fs[dataprovider]);// TODO creaRichiesta questo era stato inserito per verificare il corretto comportamento della somma di più importi ma non va bene per alcune richiete di tipo anagrafico : parseFloat(fs[dataprovider].toFixed(2));
-					
+						if(fieldTypeCode == 'INT' || scopes.utl.isInt(fs[dataprovider]))
+							newRequestDetail.valore                   =  utils.stringLeft(fs[dataprovider].toString(),utils.stringPosition(fs[dataprovider].toString(),'.',0,1))
+						else if(fieldTypeCode == 'NUM')	
+							newRequestDetail.valore = parseFloat(fs[dataprovider].toFixed(2));
+						else
+							newRequestDetail.valore = fs[dataprovider];
+						
 					if(fs[dataprovider + '_setdefault'])
 					{
 						var defaultValue;
@@ -188,6 +194,7 @@ function creaRichiestaDetail(fs, params, callback)
 			{
 				var field 		 = requestFields.getRecord(f);
 				var dataprovider = field.dataprovider || field.codice;
+				var fieldTypeCode = field.tab_richiestedettagliocampi_to_tab_tipicampo.codice;
 				
 				// assegnamento della variabile dei totali relativa al dataprovider  
 				fs[dataprovider] = frm['v_' + dataprovider + '_tot'];
@@ -201,7 +208,12 @@ function creaRichiestaDetail(fs, params, callback)
 					var newRequestDetail 							  = newRequest.lavoratori_richieste_to_lavoratori_richiestecampi.getRecord(newRequest.lavoratori_richieste_to_lavoratori_richiestecampi.newRecord());//requestDetailFs.getRecord(requestDetailFs.newRecord());
 						newRequestDetail.idtabrichiestadettagliocampo = field.idtabrichiestadettagliocampo;
 						newRequestDetail.codice 					  = field.codice;
-						newRequestDetail.valore 					  = parseFloat(fs[dataprovider].toFixed(2));
+						if(fieldTypeCode == 'INT' || scopes.utl.isInt(fs[dataprovider]))
+							newRequestDetail.valore                   =  utils.stringLeft(fs[dataprovider].toString(),utils.stringPosition(fs[dataprovider].toString(),'.',0,1))
+						else if(fieldTypeCode == 'NUM')	
+							newRequestDetail.valore = parseFloat(fs[dataprovider].toFixed(2));
+						else
+							newRequestDetail.valore = fs[dataprovider];
 					
 					for(d = 0; d < daysNumber; d++)
 					{
@@ -214,7 +226,7 @@ function creaRichiestaDetail(fs, params, callback)
 							var newRequestDetailDay    = newRequestDetail.lavoratori_richiestecampi_to_lavoratori_richiestecampi_dettaglio.getRecord((newRequestDetail.lavoratori_richiestecampi_to_lavoratori_richiestecampi_dettaglio.newRecord()));
 							newRequestDetailDay.giorno = day;
 							newRequestDetailDay.codice = field.codice;
-							newRequestDetailDay.valore = frm[varName];
+							newRequestDetailDay.valore = frmVar.toString();
 						}
 					}
 						
