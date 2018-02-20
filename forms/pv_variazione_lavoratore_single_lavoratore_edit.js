@@ -33,7 +33,7 @@ function setFooterElements(form, params, layoutParams, multiple)
 function onAction$btn_save(event)
 {
 	var success = dc_save(event, event.getFormName());
-	if (success)
+	if (success == 1)
 		closeAndContinue(event);
 }
 
