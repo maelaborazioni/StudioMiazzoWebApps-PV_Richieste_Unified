@@ -62,11 +62,11 @@ function process_conferma_variazione_dettaglio(event)
 		var oriFrmName = utils.stringLeft(event.getFormName(),event.getFormName().length - 7) 
 		var oriFrm = forms[oriFrmName];
 		if(['v_base_tot'])
-			oriFrm.foundset['base'] = parseFloat(frm['v_base_tot']);
+			oriFrm.foundset['base'] =  utils.stringReplace(frm['v_base_tot'],',','.');
 		if(['v_quantita_tot'])
-			oriFrm.foundset['quantita'] = parseFloat(frm['v_quantita_tot']);
+			oriFrm.foundset['quantita'] = utils.stringReplace(frm['v_quantita_tot'],',','.');
 		if(['v_importo_tot'])
-			oriFrm.foundset['importo'] = parseFloat(frm['v_importo_tot']);
+			oriFrm.foundset['importo'] = utils.stringReplace(frm['v_importo_tot'],',','.');
 		
 		oriFrm.foundset['dettaglio'] = 1;
 		
@@ -133,7 +133,7 @@ function updateFields(event)
 	{
 		/** @type {String}*/
 		var tot = '';
-		/** @type {Number} */
+		/** @type {String} */
 		var tempTot = null;
 		/** @type {String} */
 		var formula = frm['v_' + specification[s] + '_formula'];
@@ -149,9 +149,12 @@ function updateFields(event)
 				{
 					day = new Date(firstDate.getFullYear(),firstDate.getMonth(),firstDate.getDate() + g);
 				    isoDay = globals.dateFormat(day,globals.ISO_DATEFORMAT);
-				    var valQta = parseFloat(utils.stringReplace(frm['v_quantita_' + isoDay],",","."));
-					var valBase = parseFloat(utils.stringReplace(frm['v_base_' + isoDay],",","."));
-					frm['v_' + specification[s] + '_' + isoDay] = parseFloat((parseFloat(valQta.toFixed(2)) * parseFloat(valBase.toFixed(2))).toFixed(2)); 
+				    var valQta = frm['v_quantita_' + isoDay];
+					var valBase = frm['v_base_' + isoDay];
+					if(valQta && valBase) 
+						frm['v_' + specification[s] + '_' + isoDay] = utils.stringReplace( ( (Math.round(valQta * 1e2) / 1e2) * (Math.round(valBase * 1e2) / 1e2) ).toFixed(2),'.',',');
+					else
+						frm['v_' + specification[s] + '_' + isoDay] = null;
 				}
 				break;
 			default:
@@ -161,28 +164,27 @@ function updateFields(event)
 		   			
 		if(isNaN(parseFloat(formula)))
 		{
-			tempTot = 0;
-			for(g = 0; g < daysNumber; g++)
+			tempTot = "";
+			for(g = 0; g < daysNumber; g++) 
 			{
 				day = new Date(firstDate.getFullYear(),firstDate.getMonth(),firstDate.getDate() + g);
 			    isoDay = globals.dateFormat(day,globals.ISO_DATEFORMAT);
 			    if(frm['v_' + specification[s] + '_' + isoDay])
 			    {
-			       var val = parseFloat(utils.stringReplace(frm['v_' + specification[s] + '_' + isoDay],",","."));
-			       tempTot = parseFloat( 
-			    	                     ( parseFloat(tempTot.toFixed(2)) 
-	    	                    		   +
-									 	   parseFloat(val.toFixed(2))
-										  ).toFixed(2)
-									    );
-			       tot = tempTot.toFixed(2);
-			    }
+			    	var val = parseFloat(utils.stringReplace(frm['v_' + specification[s] + '_' + isoDay],",","."));
+			        var currTot = parseFloat(tempTot) ? parseFloat(tempTot) + val : val;
+			    	tempTot = currTot.toFixed(2);
+				}
 		   	}
+			
+		   	tot = scopes.utl.isInt(tempTot) ? utils.stringLeft(tempTot.toString(),utils.stringPosition(tempTot.toString(),'.',0,1) - 1) : tempTot.toString();
+		   	frm['v_' + specification[s] + '_tot'] = tempTot ? utils.stringReplace(tot,'.',',') : null;
 		}
 		else
-			tot = parseFloat(utils.stringReplace(frm['v_' + specification[s] + '_formula'],",","."));
-					
-	    frm['v_' + specification[s] + '_tot'] = tot ? tot : null;
+		{
+			tot = frm['v_' + specification[s] + '_formula'].toString();
+			frm['v_' + specification[s] + '_tot'] = tot ? utils.stringReplace(tot,'.',',') : null;			
+		}		
 	}
 }
 
