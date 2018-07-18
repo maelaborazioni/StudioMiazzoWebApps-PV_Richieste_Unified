@@ -109,7 +109,7 @@ function onDataChangeDitta(oldValue, newValue, event) {
 		return true;
 	}
 	
-	/** @type {JSFoundset<db:/ma_anagrafiche/ditte>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/ditte>} */
 	var dittaFs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, 'ditte');
 	if (dittaFs.find())
 	{
@@ -331,7 +331,7 @@ function resetGruppiLavoratori()
  */
 function onDataChangeCodLavoratore(oldValue, newValue, event)
 {
-	/** @type {JSFoundset<db:/ma_anagrafiche/lavoratori>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/lavoratori>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, globals.Table.LAVORATORI);
 		fs = filterLavoratori(fs);
 	
@@ -386,7 +386,7 @@ function getHistoryForm()
  */
 function filter(removeDetailIfEmpty)
 {
-	/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+	/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 	var fs = _super.filter(removeDetailIfEmpty);
 	
 	var decorrenzaStart = vDecorrenza;

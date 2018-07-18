@@ -187,7 +187,7 @@ function populateDataSet(ds, specification, params, data)
 {
 	data = getData(specification, params, data);
 	
-	/** @type {JSFoundset<db:/ma_anagrafiche/lavoratori>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/lavoratori>} */
 	var lavoratori = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, globals.Table.LAVORATORI);
 		lavoratori.loadRecords(params.iddipendenti[0]);
 		
@@ -195,7 +195,7 @@ function populateDataSet(ds, specification, params, data)
 	
 	if(ds)
 	{
-		/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
+		/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
 		var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.REGOLE_RICHIESTE);
 		if (fs && fs.find())
 		{

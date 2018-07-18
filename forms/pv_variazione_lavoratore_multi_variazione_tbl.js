@@ -61,7 +61,7 @@ function getData(specification, params, data)
 			if(datiRichiesta.terminato == null)
 				datiRichiesta.terminato = (params.terminato != null ? params.terminato : 1);
 			
-			/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
+			/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
 			var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.REGOLE_RICHIESTE);
 				fs.loadRecords(ruleid);
 			

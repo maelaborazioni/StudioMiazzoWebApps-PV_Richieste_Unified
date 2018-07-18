@@ -146,7 +146,7 @@ function onDataChangePeriodo(oldValue, newValue, event)
  */
 function onDataChangeCodLavoratore(oldValue, newValue, event)
 {
-	/** @type {JSFoundset<db:/ma_anagrafiche/lavoratori>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/lavoratori>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, globals.Table.LAVORATORI);
 		fs = _super.filterLavoratori(fs);
 	
@@ -190,7 +190,7 @@ function getSingleEditForm()
  */
 function getMultiEditForm()
 {
-	/** @type {JSFoundset<db:/ma_richieste/tab_richieste>} */
+	/** @type {JSFoundSet<db:/ma_richieste/tab_richieste>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.CATEGORIE_RICHIESTE);
 	if (fs && fs.find())
 	{
@@ -310,7 +310,7 @@ function lookupRegole(event, multiSelect, disabledElements)
 }
 
 /**
- * @param {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>} fs
+ * @param {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>} fs
  *
  * @properties={typeid:24,uuid:"E2FF48D5-5B3D-4939-80EB-2FEC3834AD3A"}
  * @AllowToRunInFind

@@ -16,7 +16,7 @@ function init(firstShow)
 	
 	if(vParams && vParams.requestid)
 	{
-		/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
+		/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
 		var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.REGOLE_RICHIESTE);
 		if (fs && fs.find())
 		{

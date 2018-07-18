@@ -11,7 +11,7 @@ function init(firstShow)
 	// auto selection of current user as the selected employee
 	employee = null;
 	
-	/** @type {JSFoundset<db:/ma_anagrafiche/lavoratori>}*/
+	/** @type {JSFoundSet<db:/ma_anagrafiche/lavoratori>}*/
     var fs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE,globals.Table.LAVORATORI);
     if(fs.find())
     {

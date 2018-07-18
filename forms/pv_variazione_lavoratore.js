@@ -28,7 +28,7 @@ function creaRichiesta(fs, params, callback)
 	{
 		fs = filterRecordsToSave(fs, params, callback);
 		
-		/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 		var requestFs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_RICHIESTE);
 		if(!requestFs)
 			return { returnValue: -1 };
@@ -150,7 +150,7 @@ function creaRichiestaDetail(fs, params, callback)
 		var daysNumber = globals.getTotGiorniMese(firstDay.getMonth() + 1,firstDay.getFullYear());
 		var d = 0;
 		
-		/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 		var requestFs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_RICHIESTE);
 		if(!requestFs)
 			return { returnValue: -1 };
@@ -355,7 +355,7 @@ function aggiornaRichiesta(fs, params, callback)
 {
 	try
 	{
-		/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 		var requestFs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_RICHIESTE);
 		if(!requestFs)
 			return { returnValue: -1 };
@@ -431,7 +431,7 @@ function aggiornaRichiestaDetail(fs, params, callback)
 {
 	try
 	{
-		/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 		var requestFs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_RICHIESTE);
 		if(!requestFs)
 			return { returnValue: -1 };
@@ -451,7 +451,7 @@ function aggiornaRichiestaDetail(fs, params, callback)
 			var daysNumber = globals.getTotGiorniMese(firstDay.getMonth() + 1,firstDay.getFullYear());
 			var d = 0;
 					
-			/** @type {JSFoundset<db:/ma_richieste/lavoratori_richiestecampi_dettaglio>} */
+			/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richiestecampi_dettaglio>} */
 			var requestCampiDettFs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_CAMPI_DETTAGLIO);
 			
 			// Aggiorna la decorrenza
@@ -611,7 +611,7 @@ function populateDataSet(ds, specification, params, data)
 	ds = _super.populateDataSet(ds, specification, params, data);
 	if(ds)
 	{	
-		/** @type {JSFoundset<db:/ma_anagrafiche/lavoratori>} */
+		/** @type {JSFoundSet<db:/ma_anagrafiche/lavoratori>} */
 		var fs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, globals.Table.LAVORATORI);
 		if (fs && fs.find())
 		{

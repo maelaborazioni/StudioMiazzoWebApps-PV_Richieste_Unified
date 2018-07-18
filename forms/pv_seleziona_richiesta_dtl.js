@@ -191,7 +191,7 @@ function getDisabledEmployees(companyid, periodo, requestid)
 {
 	try
 	{
-		/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 		var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_RICHIESTE);
 		if (fs && fs.find())
 		{
@@ -231,7 +231,7 @@ function getDisabledEmployees(companyid, periodo, requestid)
  */
 function getDisabledRules(companyid, employeesid, periodo)
 {
-	/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+	/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.LAVORATORI_RICHIESTE);
 	if (fs && fs.find())
 	{
@@ -255,7 +255,7 @@ function getDisabledRules(companyid, employeesid, periodo)
 }
 
 /**
- * @param {JSFoundset<db:/ma_richieste/tab_richiestedettaglio>} fs
+ * @param {JSFoundSet<db:/ma_richieste/tab_richiestedettaglio>} fs
  *
  * @properties={typeid:24,uuid:"FA1424C1-8EDB-4D79-91C7-E602AFC9A644"}
  * @AllowToRunInFind
@@ -365,7 +365,7 @@ function possiedeGruppi(ditta)
 	if(!ditta)
 		return false;
 	
-	/** @type {JSFoundset<db:/ma_anagrafiche/ditte_presenzegruppigestione>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/ditte_presenzegruppigestione>} */
 	var gruppiFs = ditta.ditte_to_ditte_presenzegruppigestione;
 	if (gruppiFs && gruppiFs.find())
 	{
@@ -539,7 +539,7 @@ function onDataChangeCategoriaRichiesta(oldValue, newValue, event)
 	{
 		// Disabilita l'inserimento di richieste multiple per le categorie che non lo prevedono
 		// Disabilita la scelta del gruppo lavoratori per le categorie che non lo prevedono
-		/** @type {JSFoundset<db:/ma_richieste/tab_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/tab_richieste>} */
 		var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.CATEGORIE_RICHIESTE);
 		if (fs && fs.find())
 		{
@@ -603,7 +603,7 @@ function resetRegola()
  */
 function onDataChangeCodDitta(oldValue, newValue, event)
 {
-	/** @type {JSFoundset<db:/ma_anagrafiche/ditte>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/ditte>} */
 	var ditteFs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, globals.Table.DITTE);
 	if (ditteFs && ditteFs.find())
 	{
@@ -811,7 +811,7 @@ function onDataChangeCodGruppoLavoratori(oldValue, newValue, event)
 		return true;
 	}
 		
-	/** @type {JSFoundset<db:/ma_anagrafiche/ditte_presenzegruppigestione>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/ditte_presenzegruppigestione>} */
 	var gruppiFs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, 'ditte_presenzegruppigestione');
 	if (gruppiFs && gruppiFs.find())
 	{
@@ -851,7 +851,7 @@ function onDataChangeGruppoLavoratori(oldValue, newValue, event)
 		return true;
 	}
 	
-	/** @type {JSFoundset<db:/ma_anagrafiche/ditte_presenzegruppigestione>} */
+	/** @type {JSFoundSet<db:/ma_anagrafiche/ditte_presenzegruppigestione>} */
 	var gruppiFs = databaseManager.getFoundSet(globals.Server.MA_ANAGRAFICHE, 'ditte_presenzegruppigestione');
 	if (gruppiFs && gruppiFs.find())
 	{

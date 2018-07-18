@@ -69,7 +69,7 @@ function init(firstShow)
 }
 
 /**
- * @param {JSFoundset<db:/ma_richieste/tab_richiestedettaglio>} fs
+ * @param {JSFoundSet<db:/ma_richieste/tab_richiestedettaglio>} fs
  *
  * @properties={typeid:24,uuid:"E8715EDF-4FB8-4133-96E8-9F392F8DC686"}
  * 
@@ -161,7 +161,7 @@ function onDataChangeCodRichiesta(oldValue, newValue, event)
 		return true;
 	}
 	
-	/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettaglio>} */
+	/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettaglio>} */
 	var requestDetailFs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.DETTAGLIO_RICHIESTE);
 	if (requestDetailFs && requestDetailFs.find())
 	{
@@ -203,7 +203,7 @@ function updateRequest(req)
 				throw new Error('Nessuna regola definita per la richiesta ' + req.descrizione + ', periodo ' + utils.dateFormat(periodoDate, 'MM/yyyy') + '\nContattare lo studio.');
 			else 
 			{
-				/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
+				/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
 				var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.REGOLE_RICHIESTE);
 					fs.loadRecords(regoleAmmesse[0]);
 					
@@ -364,7 +364,7 @@ function onDataChangeCodRegola(oldValue, newValue, event)
 		return true;
 	}
 	
-	/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
+	/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.REGOLE_RICHIESTE);
 		filterRule(fs);
 		
@@ -434,7 +434,7 @@ function filterRule(fs)
  */
 function getSingleEditForm()
 {
-	/** @type {JSFoundset<db:/ma_richieste/tab_richieste>} */
+	/** @type {JSFoundSet<db:/ma_richieste/tab_richieste>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.CATEGORIE_RICHIESTE);
 	if (fs && fs.find())
 	{
@@ -467,7 +467,7 @@ function getSingleEditForm()
  */
 function getMultiEditForm()
 {
-	/** @type {JSFoundset<db:/ma_richieste/tab_richieste>} */
+	/** @type {JSFoundSet<db:/ma_richieste/tab_richieste>} */
 	var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.CATEGORIE_RICHIESTE);
 	if (fs && fs.find())
 	{

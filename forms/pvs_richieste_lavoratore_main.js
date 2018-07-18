@@ -317,7 +317,7 @@ function restoreRequest(requestid)
 		databaseManager.setAutoSave(false);
 		databaseManager.startTransaction();
 		
-		/** @type {JSFoundset<db:/ma_richieste/lavoratori_richieste>} */
+		/** @type {JSFoundSet<db:/ma_richieste/lavoratori_richieste>} */
 		var fs = foundset.duplicateFoundSet().unrelate();
 		if(!fs.loadRecords(requestid))
 			return false;
@@ -611,6 +611,13 @@ function onActionSendRequests(event)
 	if(globals.ma_utl_getOwnerName(globals.svy_sec_lgn_owner_id) === 'DEMO')
 	{
 		setStatusWarning('i18n:ma.msg.not_available_in_demo_mode');
+		return;
+	}
+	
+	//TODO Ditta 502
+	if(globals.getCodDitta(ftrFrm.company.idditta) == 502 && globals.svy_sec_username != 'ASSISTENZA')
+	{
+		globals.ma_utl_showInfoDialog('L\'operazione è bloccata per il mese in corso. Contattare lo Studio per ulteriori informazioni','Predisposizione ed invio giornaliera');
 		return;
 	}
 

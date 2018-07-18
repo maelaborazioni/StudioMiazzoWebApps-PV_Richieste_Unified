@@ -229,7 +229,7 @@ function getData(specification, params, data)
 	for(var employee in rulesPerEmployee)
 	{
 		var idregola = rulesPerEmployee[employee];
-		/** @type {JSFoundset<db:/ma_richieste/tab_richiestedettagliocondizioni>}*/
+		/** @type {JSFoundSet<db:/ma_richieste/tab_richiestedettagliocondizioni>}*/
 		var fs = databaseManager.getFoundSet(globals.Server.MA_RICHIESTE, globals.Table.REGOLE_RICHIESTE);
 			
 		if(!fs.loadRecords(idregola))
