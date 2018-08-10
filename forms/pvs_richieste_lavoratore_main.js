@@ -614,17 +614,11 @@ function onActionSendRequests(event)
 		return;
 	}
 	
-	//TODO Ditta 502
-	if(globals.getCodDitta(ftrFrm.company.idditta) == 502 && globals.svy_sec_username != 'ASSISTENZA')
-	{
-		globals.ma_utl_showInfoDialog('L\'operazione è bloccata per il mese in corso. Contattare lo Studio per ulteriori informazioni','Predisposizione ed invio giornaliera');
-		return;
-	}
+	var ftrFrm = forms.pvs_richieste_lavoratore_filter_dtl;
 
 	/**
 	 * 
 	 */
-	var ftrFrm = forms.pvs_richieste_lavoratore_filter_dtl;
 	var requestsToBeTerminated = getRequestsToBeTerminated(ftrFrm.company.idditta,ftrFrm.periodocedolino);
 	if(requestsToBeTerminated && requestsToBeTerminated.getSize())
 	{
