@@ -747,7 +747,7 @@ function confermaRichiesta(event)
 		
 		var form;
 		
-		form = editForm.createRequestForm(params, multiple, editForm, getDetailFormName(params, multiple, true)); // creazione form per getione classica
+		form = editForm.createRequestForm(params, multiple, editForm, getDetailFormName(params, multiple, true)); // creazione form per gestione classica
 		
 		if(!form)
 			return;
