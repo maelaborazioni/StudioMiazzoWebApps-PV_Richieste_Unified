@@ -314,7 +314,8 @@ function filterRecordsToSave(fs, params, callback)
 		for(var r = 1; r <= fs.getSize(); r++)
 		{
 			var currRec = fs.getRecord(r);
-			var specification = params.rulesObject.rulesSpecification[currRec['idregola']];
+			//Ticket 15456 : modifica per consentire inserimento di voce avente solamente campi fissi (senza campi compilabili dall'utente)
+			var specification = params.rulesObject && params.rulesObject.rulesSpecification ? params.rulesObject.rulesSpecification[currRec['idregola']] : [];
 			var isValidRec = true;
 			for(var f in specification)
 			{

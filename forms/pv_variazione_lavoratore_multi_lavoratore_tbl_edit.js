@@ -142,7 +142,7 @@ function dc_save_pre(fs)
  */
 function dc_save_validate(fs, program)
 {
-	var requiredFieldsProgram = globals.nav.program[vParams.requiredfields || program].required_fields;
+	var requiredFieldsProgram = globals.nav.program[vParams.requiredfields || program] ? globals.nav.program[vParams.requiredfields || program].required_fields : null;
 	var success               = _super.dc_save_validate(fs, program, true) !== -1 && validateRequiredFields(requiredFieldsProgram, fs);
 	
 	return success ? 0 : -1;
