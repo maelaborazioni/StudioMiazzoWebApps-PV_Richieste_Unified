@@ -4,6 +4,16 @@
 var vParams = {};
 
 /**
+ * @properties={typeid:35,uuid:"847E897D-9C8D-47A1-818B-250FFF1A337E",variableType:-4}
+ */
+var vMese = null;
+
+/**
+ * @properties={typeid:35,uuid:"0A9F7E15-9CF0-407C-A365-1674EFA865E0",variableType:-4}
+ */
+var vAnno = null;
+
+/**
  * @properties={typeid:24,uuid:"282F97E0-9982-45B4-B89A-AD53CE695EA5"}
  */
 function init(firstShow)
@@ -44,7 +54,7 @@ function onTabChange(previousIndex, event)
 	/** @type {Form<pv_seleziona_richiesta_dtl>} */
 	var previousForm = forms[elements.selezione_panel.getTabFormNameAt(previousIndex)];
 	
-	currentForm.updatePeriodo(previousForm.vAnno, previousForm.vMese);
+	currentForm.updatePeriodo(previousForm.vAnno || vAnno, previousForm.vMese || vMese);
 	currentForm.updateCategoria(previousForm.categoria);
 	currentForm.updateGruppo(previousForm.gruppo);
 }

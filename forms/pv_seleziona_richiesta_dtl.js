@@ -200,7 +200,12 @@ function getDisabledEmployees(companyid, periodo, requestid)
 			fs.rettificaper = '^||=0';
 			
 			if(!globals.ma_utl_hasKeySede())
+			{
 				fs.owner_id = globals.svy_sec_lgn_owner_id;
+				
+				if(globals.ma_utl_hasKey(globals.Key.PANNELLO_VARIAZIONI_FILTRO_UTENTE))
+				   fs.richiesta_utente = globals.getUserName(globals.svy_sec_lgn_user_id);			
+			}
 			
 			fs.idditta                						  					  = globals.ma_utl_ditta_toSede(companyid);
 			//TODO PANNELLO VARIAZIONI

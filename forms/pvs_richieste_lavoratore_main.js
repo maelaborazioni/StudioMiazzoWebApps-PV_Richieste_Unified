@@ -131,13 +131,14 @@ function newRequest()
 	var choiceForm = getChoiceForm();
 		choiceForm.foundset.loadAllRecords();
 		choiceForm.foundset.sort('codice asc');
+	
 	// Pre-seleziona la stessa ditta indicata nell'intestazione
 	var ftrForm = forms.pvs_richieste_lavoratore_filter_single_dtl.vIdLavoratoreSingolo ? forms.pvs_richieste_lavoratore_filter_single_dtl : forms.pvs_richieste_lavoratore_filter_dtl; 
 	if(ftrForm.company)
 		globals.lookupFoundset(ftrForm.company.idditta,choiceForm.foundset);
 	else if(ftrForm.vIdLavoratoreSingolo)
 		globals.lookupFoundset(globals.getDitta(ftrForm.vIdLavoratoreSingolo),choiceForm.foundset);
-		
+	
 	var params = 
 	{ 
 		post_save_callback: 
@@ -160,6 +161,11 @@ function newRequest()
 	};
 	
 	choiceForm.setParams(params);
+	if(ftrForm && ftrForm.vPeriodo)
+	{
+		choiceForm.vAnno = ftrForm.vPeriodo.getFullYear();
+		choiceForm.vMese = ftrForm.vPeriodo.getMonth() + 1;
+	}
 	
 	globals.ma_utl_setStatus(globals.Status.EDIT, choiceForm.controller.getName(), null, null, true);	
 	globals.ma_utl_showFormInDialog(choiceForm.controller.getName(), 'Nuova variazione');

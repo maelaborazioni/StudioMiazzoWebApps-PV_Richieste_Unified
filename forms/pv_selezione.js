@@ -168,7 +168,6 @@ function process_ditta_periodo_cedolino(event,idLavoratore)
 */
 function onShowForm(_firstShow, _event) 
 {
-	_super.onShowForm(_firstShow, _event);
-	
+	_super.onShowForm(_firstShow, _event);	
 	globals.ma_utl_setStatus(globals.Status.EDIT,controller.getName());
 }
