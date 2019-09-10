@@ -1,0 +1,9 @@
+foreignDataSource:"db:/ma_richieste/welfare_ditte_richieste",
+items:[
+{foreignColumnName:"idwelfaredittarichiesta",primaryDataProviderID:"idwelfaredittarichiesta",typeid:23,uuid:"0C7FA1B7-FD6F-4BED-B197-4B70388B6D7F"}
+],
+joinType:1,
+name:"welfare_lavoratori_richieste_to_welfare_ditte_richieste",
+primaryDataSource:"db:/ma_richieste/welfare_lavoratori_richieste",
+typeid:22,
+uuid:"00047F28-C431-4BE9-A765-AAF65210C72F"

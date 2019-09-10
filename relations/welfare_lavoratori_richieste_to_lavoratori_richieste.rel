@@ -1,0 +1,12 @@
+allowCreationRelatedRecords:true,
+allowParentDeleteWhenHavingRelatedRecords:false,
+deleteRelatedRecords:true,
+foreignDataSource:"db:/ma_richieste/lavoratori_richieste",
+items:[
+{foreignColumnName:"idlavoratorerichiesta",primaryDataProviderID:"idlavoratorerichiesta",typeid:23,uuid:"DAA22BE5-853A-4CBD-8EFF-221A3BCFD7FF"}
+],
+joinType:1,
+name:"welfare_lavoratori_richieste_to_lavoratori_richieste",
+primaryDataSource:"db:/ma_richieste/welfare_lavoratori_richieste",
+typeid:22,
+uuid:"5D9E62A0-888F-401C-B8AA-943F531FD40E"
