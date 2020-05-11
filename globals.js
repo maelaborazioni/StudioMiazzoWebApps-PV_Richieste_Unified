@@ -174,9 +174,11 @@ function costruisciRiepilogoAnomalieRichieste(arrLavoratoriRichieste)
     	if(arrLavoratoriRichieste[i])
     	{
     		var obj = getInfoFromWelfareRichiesta(arrLavoratoriRichieste[i])
-    		var currRow = [obj['id'],obj['codice'],obj['nominativo'],obj['tipo_richiesta'],obj['quantita'],obj['base'],obj['importo'],0];
-    	
-    		ds.addRow(currRow);
+    		if(obj)
+    		{
+    			var currRow = [obj['id'],obj['codice'],obj['nominativo'],obj['tipo_richiesta'],obj['quantita'],obj['base'],obj['importo'],0];
+    	   		ds.addRow(currRow);
+    		}
     	}
     }
     
@@ -249,22 +251,25 @@ function getInfoFromWelfareRichiesta(idWelfareLavoratoreRichiesta)
 		fs.idwelfarelavoratorerichiesta = idWelfareLavoratoreRichiesta;
 		if(fs.search())
 		{
-			var idLavoratore = globals.ma_utl_lav_toCliente(fs.welfare_lavoratori_richieste_to_lavoratori_richieste.idlavoratore);
+			if(fs.welfare_lavoratori_richieste_to_lavoratori_richieste && fs.welfare_lavoratori_richieste_to_lavoratori_richieste.getSize())
+			{
+				var idLavoratore = globals.ma_utl_lav_toCliente(fs.welfare_lavoratori_richieste_to_lavoratori_richieste.idlavoratore);
 						
-			var obj = {
-				id : idWelfareLavoratoreRichiesta,
-				codice : globals.getCodLavoratore(idLavoratore),
-				nominativo : globals.getNominativo(idLavoratore),
-				quantita : fs.quantita,
-				base : fs.base,
-				importo : fs.importo,
-				tipo_richiesta : getDescrizioneTracciatoConversione(fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaredittatracciato
-					                                                ,fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaretipopiano
-																	,fs.codicetracciato
-																	,fs.codicetracciatodettaglio)
+				var obj = {
+					id : idWelfareLavoratoreRichiesta,
+					codice : globals.getCodLavoratore(idLavoratore),
+					nominativo : globals.getNominativo(idLavoratore),
+					quantita : fs.quantita,
+					base : fs.base,
+					importo : fs.importo,
+					tipo_richiesta : getDescrizioneTracciatoConversione(fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaredittatracciato
+						                                                ,fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaretipopiano
+																		,fs.codicetracciato
+																		,fs.codicetracciatodettaglio)
+				}
+				
+				return obj;
 			}
-			
-			return obj;
 		}
 	}
 	
