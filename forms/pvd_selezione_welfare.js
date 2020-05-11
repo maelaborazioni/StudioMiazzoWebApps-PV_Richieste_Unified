@@ -252,39 +252,59 @@ function confermaDittaPeriodoImportazione(event)
 	if(!validaDittaPeriodoImportazione())
 		return;
 	
+	var params = {
+        processFunction: process_importazione_welfare,
+        message: '', 
+        opacity: 0.5,
+        paneColor: '#434343',
+        textColor: '#EC1C24',
+        showCancelButton: false,
+        cancelButtonText: '',
+        dialogName : '',
+        fontType: 'Arial,4,25',
+        processArgs: [event]
+    };
+	
 	var arrLavRich = check_welfare();
 	if(arrLavRich && arrLavRich.length)
 	{
-		// ricostruisci form di scelta sovrascrittura richieste
-		/** @type {RuntimeForm<pvl_welfare_richieste_tab>} */
-		var frm = globals.costruisciRiepilogoAnomalieRichieste(arrLavRich);
-		frm.vIdDitta = _idditta;
-		frm.vPeriodo = _annoCed * 100 + _meseCed;
-		frm.vIdTabDittaTracciatoWelfare = _idTabDittaTracciatoWelfare;
-		frm.vIdTabPianoWelfare = _idTabTipoPianoWelfare;
-		frm.vAnnoContabile = _annoContabile;
-		frm.vFileId = _fileId;
+		// verifica effettiva presenza di voci ancora inserite
+		var cols = ['id'];
+		var ds = databaseManager.createEmptyDataSet(0, cols);
+		for(var i = 1; i <= arrLavRich.length; i++)
+	    {
+	    	if(arrLavRich[i])
+	    	{
+	    		var obj = globals.getInfoFromWelfareRichiesta(arrLavRich[i])
+	    		if(obj)
+	    		{
+	    			var currRow = [obj['id']];
+	    	   		ds.addRow(currRow);
+	    		}
+	    	}
+	    }
 		
-		globals.svy_mod_closeForm(event);
-		globals.ma_utl_showFormInDialog(frm.controller.getName(),'Richieste da importare già presenti');
-		globals.ma_utl_setStatus(globals.Status.EDIT,frm.controller.getName());
+	    if(ds.getMaxRowIndex())
+	    {
+			// ricostruisci form di scelta sovrascrittura richieste
+			/** @type {RuntimeForm<pvl_welfare_richieste_tab>} */
+			var frm = globals.costruisciRiepilogoAnomalieRichieste(arrLavRich);
+			frm.vIdDitta = _idditta;
+			frm.vPeriodo = _annoCed * 100 + _meseCed;
+			frm.vIdTabDittaTracciatoWelfare = _idTabDittaTracciatoWelfare;
+			frm.vIdTabPianoWelfare = _idTabTipoPianoWelfare;
+			frm.vAnnoContabile = _annoContabile;
+			frm.vFileId = _fileId;
+			
+			globals.svy_mod_closeForm(event);
+			globals.ma_utl_showFormInDialog(frm.controller.getName(),'Richieste da importare già presenti');
+			globals.ma_utl_setStatus(globals.Status.EDIT,frm.controller.getName());
+	    }
+	    else
+	    	plugins.busy.block(params);
 	}
 	else
-	{
-		var params = {
-	        processFunction: process_importazione_welfare,
-	        message: '', 
-	        opacity: 0.5,
-	        paneColor: '#434343',
-	        textColor: '#EC1C24',
-	        showCancelButton: false,
-	        cancelButtonText: '',
-	        dialogName : '',
-	        fontType: 'Arial,4,25',
-	        processArgs: [event]
-	    };
-		plugins.busy.block(params);
-	}
+		plugins.busy.block(params);	
 }
 
 /**

@@ -7,46 +7,46 @@ function getSpecification(params)
 	var specification =
 	[
 		{
-			code		 : 'QTA', 
-			name		 : 'Quantità', 
-			format		 : '#,##0.00|#(9)',
-			size		 : 100, 
-			lines		 : 1, 
-			enabled		 : true, 
-			visible		 : true, 
-			order		 : 1, 
-			group		 : 1, 
-			type		 : globals.FieldType.NUMBER, 
-			dataprovider : 'quantita',
-			hasdefault   : true
+			Code		 : 'QTA', 
+			Name		 : 'Quantità', 
+			Format		 : '#,##0.00|#(9)',
+			Size		 : 100, 
+			Lines		 : 1, 
+			Enabled		 : true, 
+			Visible		 : true, 
+			Order		 : 1, 
+			Group		 : 1, 
+			Type		 : globals.FieldType.NUMBER, 
+			DataProvider : 'quantita',
+			HasDefault   : true
 		},
 		{
-			code		 : 'BASE', 
-			name		 : 'Base', 
-			format		 : '#,##0.00|#(11)', 
-			size		 : 100, 
-			lines		 : 1, 
-			enabled		 : true, 
-			visible		 : true, 
-			order		 : 2, 
-			group		 : 1, 
-			type		 : globals.FieldType.NUMBER, 
-			dataprovider : 'base',
-			hasdefault   : true
+			Code		 : 'BASE', 
+			Name		 : 'Base', 
+			Format		 : '#,##0.00|#(11)', 
+			Size		 : 100, 
+			Lines		 : 1, 
+			Enabled		 : true, 
+			Visible		 : true, 
+			Order		 : 2, 
+			Group		 : 1, 
+			Type		 : globals.FieldType.NUMBER, 
+			DataProvider : 'base',
+			HasDefault   : true
 		},
 		{
-			code		 : 'IMP', 
-			name		 : 'Importo', 
-			format		 : '#,##0.00|#(8)', 
-			size		 : 100, 
-			lines		 : 1, 
-			enabled		 : true, 
-			visible		 : true, 
-			order		 : 3, 
-			group		 : 1, 
-			type		 : globals.FieldType.NUMBER, 
-			dataprovider : 'importo',
-			hasdefault   : true
+			Code		 : 'IMP', 
+			Name		 : 'Importo', 
+			Format		 : '#,##0.00|#(8)', 
+			Size		 : 100, 
+			Lines		 : 1, 
+			Enabled		 : true, 
+			Visible		 : true, 
+			Order		 : 3, 
+			Group		 : 1, 
+		    Type		 : globals.FieldType.NUMBER, 
+			DataProvider : 'importo',
+			HasDefault   : true
 		}
 	];
 
@@ -143,22 +143,51 @@ function setCalculations(dataSource, specification, params)
 		
 		for (var f in specification)
 		{
+			/** @type {
+			 * 			{ 
+			 * 				Code: String, 
+			 * 				Name: String, 
+			 * 				Format: String, 
+			 * 				Size: Number, 
+			 * 				Lines: Number, 
+			 * 				Enabled: Boolean, 
+			 * 				Visible: Boolean, 
+			 * 				Order: Number, 
+			 * 				Group: Number, 
+			 * 				Type: String, 
+			 * 				DataProvider: String, 
+			 * 				Formula: String, 
+			 * 				DisplayType: Number, 
+			 * 				Regex: String, 
+			 * 				OnAction: { name: String, code: String }, 
+			 * 				LookupParams: String, 
+			 * 				FilterQuery: String, 
+			 * 				FilterArgs: String,
+			 * 				Relation: String,
+			 * 				ShownDataProvider: String, 
+			 *              Tooltip: String,
+			 *              HasDefault: Boolean,
+			 *              DependsOn: String,
+			 *              ContentDataProvider: String
+			 * 			}
+			 * 		} 
+			 */
 			var field   = specification[f];
-			var formula = field.formula;
+			var formula = field.Formula;
 			
 			// If computed, create a new calculation
-			switch(field.displaytype)
+			switch(field.DisplayType)
 			{
-				case globals.DisplayType.COMPUTED:
-					if(!calculationSource[field.dataprovider])
+				case scopes.richieste.DisplayType.COMPUTED:
+					if(!calculationSource[field.DataProvider])
 					{
-						calculationSource[field.dataprovider] = "function " + field.dataprovider + "()\
+						calculationSource[field.DataProvider] = "function " + field.DataProvider + "()\
 																 {\
 																	 switch(idregola)\
 																	 {\n";
 					}
 					
-					calculationSource[field.dataprovider]    += "		case " + s + ":\
+					calculationSource[field.DataProvider]    += "		case " + s + ":\
 																			return " + formula + "; break;\n";
 					
 					break;
@@ -229,17 +258,47 @@ function populateDataSet(ds, specification, params, data)
 				
 				specification.forEach
 					(
-						function(field)
+						function(_field)
 						{
-							if (!field.dependson && item)
+							/** @type {
+							 * 			{ 
+							 * 				Code: String, 
+							 * 				Name: String, 
+							 * 				Format: String, 
+							 * 				Size: Number, 
+							 * 				Lines: Number, 
+							 * 				Enabled: Boolean, 
+							 * 				Visible: Boolean, 
+							 * 				Order: Number, 
+							 * 				Group: Number, 
+							 * 				Type: String, 
+							 * 				DataProvider: String, 
+							 * 				Formula: String, 
+							 * 				DisplayType: Number, 
+							 * 				Regex: String, 
+							 * 				OnAction: { name: String, code: String }, 
+							 * 				LookupParams: String, 
+							 * 				FilterQuery: String, 
+							 * 				FilterArgs: String,
+							 * 				Relation: String,
+							 * 				ShownDataProvider: String, 
+							 *              Tooltip: String,
+							 *              HasDefault: Boolean,
+							 *              DependsOn: String,
+							 *              ContentDataProvider: String
+							 * 			}
+							 * 		} 
+							 */
+							var field = _field;
+							if (!field.DependsOn && item)
 							{
 								// 0 e stringa vuota sarebbero valutati false
-								if(item[field.dataprovider] === 0 || item[field.dataprovider] === '')
-									row.push(item[field.dataprovider]);
+								if(item[field.DataProvider] === 0 || item[field.DataProvider] === '')
+									row.push(item[field.DataProvider]);
 								else
-									row.push(item[field.dataprovider] || null);
+									row.push(item[field.DataProvider] || null);
 									
-								if(field.hasdefault)
+								if(field.HasDefault)
 									row.push(null);
 							}
 						}
@@ -250,8 +309,7 @@ function populateDataSet(ds, specification, params, data)
 				ds.addRow(l, row);
 			}
 		}
-	}
-	
+	}	
 	return ds;
 }
 
@@ -272,7 +330,7 @@ function onFieldRender(event)
 	if(!record || !renderable)
 		return;
 
-	var rulesSpecification = vParams['rulesObject'].rulesSpecification;
+	var rulesSpecification = vParams['rulesObject'].RulesSpecification;
 	/** @type {Array}*/
 	var specification 	   = rulesSpecification[record['idregola']];
 	
@@ -281,10 +339,10 @@ function onFieldRender(event)
 		(
 			function(field)
 			{
-				if(field.dataprovider === renderable.getDataProviderID())
+				if(field.DataProvider === renderable.getDataProviderID())
 				{
 					// INFO non esiste più l'editable (https://support.servoy.com/browse/SVY-6989)
-					renderable.enabled = field.hasdefault || field.enabled;
+					renderable.enabled = field.HasDefault || field.Enabled;
 					
 					var dataprovider = renderable.getDataProviderID();
 					var hasDefault   = !globals.ma_utl_isNullOrUndefined(record[dataprovider + '_setdefault']);
@@ -480,7 +538,7 @@ function onDuplicateButtonRender(event)
  */
 function buildForm(specification, params, multiple, formName, extendsForm, layoutParams)
 {
-	specification.forEach(function(field){ field.onrender = true; });
+	specification.forEach(function(field){ field.OnRender = true; });
 	return _super.buildForm(specification, params, multiple, formName, extendsForm, layoutParams);
 }
 
@@ -513,7 +571,7 @@ function getFieldsToSave()
 		return _super.getFieldsToCopy();
 	
 	var record        = foundset.getSelectedRecord();
-	var specification = vParams['rulesObject'].rulesSpecification[record['idregola']];
+	var specification = vParams['rulesObject'].RulesSpecification[record['idregola']];
 	
 	if (record && vParams['rulesObject'] && specification)
 	{

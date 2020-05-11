@@ -506,7 +506,8 @@ function getParams(multiSelect, event)
 {
 	var params 			     	   = _super.getParams(multiSelect, event);
 		params.dialogtitle		   = 'Richiesta variazione: ' + request.descrizione;
-		params.controller    	   = globals.PV_Controllers.LAVORATORE;
+		params.controller    	   = globals.PV_Controllers.FILTER;
+		params.type                = globals.PV_Type.LAVORATORE;
 		params.requestcode   	   = request.codice;
 		params.requestid     	   = request.idtabrichiestadettaglio;
 		params.requesttype         = request.tab_richiestedettaglio_to_tab_richieste.codice;
@@ -533,8 +534,10 @@ function getParams(multiSelect, event)
 	else
 		params.iddipendenti = lookupLavoratori(event, multiSelect, disabledElements);
 	if(!params.iddipendenti || params.iddipendenti.length === 0)
+	{
+		application.output('getParams : Nessun dipendente selezionato')
 		return null;
-	
+	}
 	if(!multiSelect)
 		params = setEmployeeRule(params.idditta, params.iddipendenti[0], params.periodo, categoria.idtabrichiesta, params.gruppolavoratori, params);
 
@@ -548,12 +551,12 @@ function getParams(multiSelect, event)
 function setEmployeeRule(companyID, employeeID, periodo, categoryID, gruppolavoratori, params)
 {
 	var regole = globals.getAvailableRequestsWithRules(companyID, employeeID, periodo, categoryID, gruppolavoratori);
-	if (regole)
+	if (regole && regole.Rules)
 	{
 		var fs = request.tab_richiestedettaglio_to_tab_richiestedettagliocondizioni;
 		if (fs && fs.find())
 		{
-			fs.idtabrichiestadettagliocondizione = regole.rules;
+			fs.idtabrichiestadettagliocondizione = regole.Rules;
 			fs.idtabrichiestadettaglio           = request.idtabrichiestadettaglio;
 			
 			if(fs.search() == 0)
@@ -568,7 +571,8 @@ function setEmployeeRule(companyID, employeeID, periodo, categoryID, gruppolavor
 		else
 			throw new Error('i18n:ma.err.findmode');
 	}
-	
+	else
+	    throw new Error('Dipendente non compatibile con la regola selezionata : nessuna regola trovata');
 	return params;
 }
 

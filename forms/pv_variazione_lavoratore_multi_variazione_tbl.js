@@ -44,10 +44,10 @@ function getData(specification, params, data)
 		validationParams.fields = specification;
 	
 	var rulesObject = params.rulesObject
-	if (rulesObject && rulesObject.rulesPerRequest && rulesObject.rules && rulesObject.rulesSpecification)
+	if (rulesObject && rulesObject.RulesPerRequest && rulesObject.Rules && rulesObject.RulesSpecification)
 	{
-		var rules           = rulesObject.rulesSpecification;
-		var rulesPerRequest = rulesObject.rulesPerRequest;
+		var rules           = rulesObject.RulesSpecification;
+		var rulesPerRequest = rulesObject.RulesPerRequest;
 		
 		for(var request in rulesPerRequest)
 		{
@@ -74,32 +74,62 @@ function getData(specification, params, data)
 			
 			/** @type {Array} */
 			var rule = rules[ruleid];
-			rule.forEach(function(field){
-				if(!field.dependson)
+			rule.forEach(function(_field){
+				/** @type {
+				 * 			{ 
+				 * 				Code: String, 
+				 * 				Name: String, 
+				 * 				Format: String, 
+				 * 				Size: Number, 
+				 * 				Lines: Number, 
+				 * 				Enabled: Boolean, 
+				 * 				Visible: Boolean, 
+				 * 				Order: Number, 
+				 * 				Group: Number, 
+				 * 				Type: String, 
+				 * 				DataProvider: String, 
+				 * 				Formula: String, 
+				 * 				DisplayType: Number, 
+				 * 				Regex: String, 
+				 * 				OnAction: { name: String, code: String }, 
+				 * 				LookupParams: String, 
+				 * 				FilterQuery: String, 
+				 * 				FilterArgs: String,
+				 * 				Relation: String,
+				 * 				ShownDataProvider: String, 
+				 *              Tooltip: String,
+				 *              HasDefault: Boolean,
+				 *              DependsOn: String,
+				 *              ContentDataProvider: String
+				 * 			}
+				 * 		} 
+				 */
+				var field = _field;
+				if(!field.DependsOn)
 				{
 					var value = null;
-					if(field.hasdefault)
+					if(field.HasDefault)
 						value = globals.getDefaultData(field, request, lavoratore);
 					
 					if(globals.ma_utl_isNullOrUndefined(value))
 					{
-						switch(field.displaytype)
+						switch(field.DisplayType)
 						{
-							case globals.DisplayType.FIXED:
-								if(field.type === globals.FieldType.NUMBER)
-									value = globals.ma_utl_parseDecimalString(field.formula);
+							case scopes.richieste.DisplayType.FIXED:
+								if(field.Type === globals.FieldType.NUMBER)
+									value = globals.ma_utl_parseDecimalString(field.Formula);
 								else
-									value = field.formula;
+									value = field.Formula;
 								break;
 								
-							case globals.DisplayType.COMPUTED:
-								value = globals.getDefaultValue(globals.fieldTypeToJSColumn(field.type));
+							case scopes.richieste.DisplayType.COMPUTED:
+								value = globals.getDefaultValue(globals.fieldTypeToJSColumn(field.Type));
 								break;
 						}
 					}
 					
-					if(!datiRichiesta[field.dataprovider])
-						datiRichiesta[field.dataprovider] = value;
+					if(!datiRichiesta[field.DataProvider])
+						datiRichiesta[field.DataProvider] = value;
 				}
 			});
 			

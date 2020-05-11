@@ -226,7 +226,7 @@ function creaRichiestaDetail(fs, params, callback)
 							var newRequestDetailDay    = newRequestDetail.lavoratori_richiestecampi_to_lavoratori_richiestecampi_dettaglio.getRecord((newRequestDetail.lavoratori_richiestecampi_to_lavoratori_richiestecampi_dettaglio.newRecord()));
 							newRequestDetailDay.giorno = day;
 							newRequestDetailDay.codice = field.codice;
-							newRequestDetailDay.valore = frmVar.toString();
+							newRequestDetailDay.valore = frmVar;
 						}
 					}
 						
@@ -308,7 +308,7 @@ function filterRecordsToSave(fs, params, callback)
 		
 	if(recordsToSave.length > 0)
 		reducedFoundset['_sv_rowid'] = recordsToSave.map(function(record){ return record['_sv_rowid']; });
-	else if(params.controller == globals.PV_Controllers.LAVORATORE)
+	else if(params.type == globals.PV_Type.LAVORATORE)
 	{
 		var arrValidRowId = [];
 		for(var r = 1; r <= fs.getSize(); r++)
@@ -319,8 +319,8 @@ function filterRecordsToSave(fs, params, callback)
 			var isValidRec = true;
 			for(var f in specification)
 			{
-				if(specification[f].hasdefault || (specification[f].enabled && !specification[f].dependson))
-				   if(currRec[specification[f].dataprovider] == null)
+				if(specification[f].HasDefault || (specification[f].Enabled && !specification[f].DependsOn))
+				   if(currRec[specification[f].DataProvider] == null)
 				   {
 					   isValidRec = false;
 					   continue;
@@ -634,27 +634,60 @@ function populateDataSet(ds, specification, params, data)
 					, lavoratore.codice
 					, lavoratore.posizioneinps
 					, lavoratore.lavoratori_to_persone.nominativo
+					// Inserisci sempre un valore per la decorrenza ed il dettaglio, quindi concatena secondo
+					// l'oggetto contenente i dati
+					, (item && item.decorrenza) || params.decorrenza
+					, (item && item.dettaglio) || params.dettaglio
+					, (item && item.terminato) || params.terminato
 				];
 				
 				if(data)
 				{
-					// Inserisci sempre un valore per la decorrenza ed il dettaglio, quindi concatena secondo
-					// l'oggetto contenente i dati
-					[{ dataprovider: 'decorrenza' },{ dataprovider:'dettaglio' },{ dataprovider:'terminato' }]
+					[]
 						.concat(specification)
 						.forEach
 						(
-							function(field)
+							function(_field)
 							{
-								if (!field.dependson && item)
+								/** @type {
+								 * 			{ 
+								 * 				Code: String, 
+								 * 				Name: String, 
+								 * 				Format: String, 
+								 * 				Size: Number, 
+								 * 				Lines: Number, 
+								 * 				Enabled: Boolean, 
+								 * 				Visible: Boolean, 
+								 * 				Order: Number, 
+								 * 				Group: Number, 
+								 * 				Type: String, 
+								 * 				DataProvider: String, 
+								 * 				Formula: String, 
+								 * 				DisplayType: Number, 
+								 * 				Regex: String, 
+								 * 				OnAction: { name: String, code: String }, 
+								 * 				LookupParams: String, 
+								 * 				FilterQuery: String, 
+								 * 				FilterArgs: String,
+								 * 				Relation: String,
+								 * 				ShownDataProvider: String, 
+								 *              Tooltip: String,
+								 *              HasDefault: Boolean,
+								 *              DependsOn: String,
+								 *              ContentDataProvider: String
+								 * 			}
+								 * 		} 
+								 */
+								var field = _field;
+								if (!field.DependsOn && item)
 								{
 									// 0 e stringa vuota sarebbero valutati false
-									if(item[field.dataprovider] === 0 || item[field.dataprovider] === '')
-										row.push(item[field.dataprovider]);
+									if(item[field.DataProvider] === 0 || item[field.DataProvider] === '')
+										row.push(item[field.DataProvider]);
 									else
-										row.push(item[field.dataprovider] || null);
+										row.push(item[field.DataProvider] || null);
 										
-									if(field.hasdefault)
+									if(field.HasDefault)
 										row.push(null);
 								}
 							}
@@ -682,7 +715,7 @@ function dc_save_validate(fs, program, multiple)
  */
 function updateCurrentData(field, idlavoratore, params, alladata)
 {
-	foundset[field.dataprovider] = globals.getCurrentData(field, params, { 'idlavoratore': idlavoratore, 'alladata': alladata });
+	foundset[field.DataProvider] = globals.getCurrentData(field, params, { 'idlavoratore': idlavoratore, 'alladata': alladata });
 }
 
 /**
@@ -702,9 +735,40 @@ function updateCurrentValue(newValue)
 	{
 		specification.forEach
 		(
-			function(field)
+			function(_field)
 			{
-				if (!field.dependson && field.isCurrentValue)
+				/** @type {
+				 * 			{ 
+				 * 				Code: String, 
+				 * 				Name: String, 
+				 * 				Format: String, 
+				 * 				Size: Number, 
+				 * 				Lines: Number, 
+				 * 				Enabled: Boolean, 
+				 * 				Visible: Boolean, 
+				 * 				Order: Number, 
+				 * 				Group: Number, 
+				 * 				Type: String, 
+				 * 				DataProvider: String, 
+				 * 				Formula: String, 
+				 * 				DisplayType: Number, 
+				 * 				Regex: String, 
+				 * 				OnAction: { name: String, code: String }, 
+				 * 				LookupParams: String, 
+				 * 				FilterQuery: String, 
+				 * 				FilterArgs: String,
+				 * 				Relation: String,
+				 * 				ShownDataProvider: String, 
+				 *              Tooltip: String,
+				 *              HasDefault: Boolean,
+				 *              DependsOn: String,
+				 *              ContentDataProvider: String,
+				 *              IsCurrentValue : Boolean
+				 * 			}
+				 * 		} 
+				 */
+				var field = _field;
+				if (!field.DependsOn && field.IsCurrentValue)
 					updateCurrentData(field, foundset['idlavoratore'], vParams, newValue);
 			}
 		)

@@ -251,7 +251,7 @@ function getParams(multiSelect, event)
 		var excludedRules  = globals.getDisabledRules(params.idditta, params.iddipendenti, params.periodo);
 		
 		params.rulesObject 	     = response;
-		params.idrichieste 		 = response.rules.filter(function(rule){ return excludedRules.indexOf(rule) === -1; });
+		params.idrichieste 		 = response.Rules.filter(function(rule){ return excludedRules.indexOf(rule) === -1; });
 		params.ammettedecorrenza = 0;
 		
 	}
@@ -336,7 +336,7 @@ function filterRegole(fs)
 		
 		var allowedObjects = globals.getAvailableRequestsWithRules(idditta, vEmployeeID, periodo, vCategoriaRichiesta, vCodGruppoLavoratori);
 		if (allowedObjects && allowedObjects.rules)
-			fs.addFoundSetFilterParam('idtabrichiestadettagliocondizione', globals.ComparisonOperator.IN, allowedObjects.rules)
+			fs.addFoundSetFilterParam('idtabrichiestadettagliocondizione', globals.ComparisonOperator.IN, allowedObjects.Rules)
 		else
 			fs.addFoundSetFilterParam('idtabrichiestadettagliocondizione', globals.ComparisonOperator.IN, []);
 			

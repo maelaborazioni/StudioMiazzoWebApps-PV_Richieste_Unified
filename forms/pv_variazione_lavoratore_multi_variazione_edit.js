@@ -56,7 +56,8 @@ function setBodyElements(form, params, layoutParams, isMultiple)
 		tabParams.ruleid			  = record.idtabrichiestadettagliocondizione;
 		tabParams.rulecode			  = record.codice;
 		tabParams.requesttype         = record.tab_richiestedettagliocondizioni_to_tab_richiestedettaglio.tab_richiestedettaglio_to_tab_richieste.codice;
-		tabParams.controller		  = globals.PV_Controllers.LAVORATORE;
+		tabParams.controller		  = globals.PV_Controllers.FORM;
+		tabParams.type                = globals.PV_Type.LAVORATORE;
 		tabParams.ammettedecorrenza   = record.tab_richiestedettagliocondizioni_to_tab_richiestedettaglio.ammettedecorrenza;
 		tabParams.datasource		  = ['ds', tabParams.requestcode, tabParams.rulecode, 'add'].join('_');
 		tabParams.ammettemolteplicita = record.tab_richiestedettagliocondizioni_to_tab_richiestedettaglio.ammettemolteplicita;

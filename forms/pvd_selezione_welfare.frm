@@ -46,7 +46,8 @@ verticalAlignment:0
 extendsID:"A17F8A8E-6BFF-4E87-AB04-668D02E78F91",
 location:"10,277",
 typeid:4,
-uuid:"2386D6FC-9277-4F12-93D2-B354ADC5AA8D"
+uuid:"2386D6FC-9277-4F12-93D2-B354ADC5AA8D",
+visible:false
 },
 {
 dataProviderID:"_codTracciatoWelfare",
@@ -117,7 +118,8 @@ verticalAlignment:0
 extendsID:"56E6B51D-A16E-4944-9D98-C9AB44C07614",
 location:"76,327",
 typeid:4,
-uuid:"461E024F-A5D3-428B-BA3A-AE5083F1CD3F"
+uuid:"461E024F-A5D3-428B-BA3A-AE5083F1CD3F",
+visible:false
 },
 {
 dataProviderID:"_message",
@@ -135,13 +137,15 @@ uuid:"46F8EFED-6613-40FA-8C14-CFE6C682C4FF"
 extendsID:"97395FA3-E133-415E-AAED-F519F5A2280D",
 location:"11,257",
 typeid:7,
-uuid:"4AB670CD-7931-43E5-B8D8-D7E0938FB984"
+uuid:"4AB670CD-7931-43E5-B8D8-D7E0938FB984",
+visible:false
 },
 {
 extendsID:"1DB37253-21CA-4D11-A86E-AF625044EAD4",
 location:"11,307",
 typeid:7,
-uuid:"5F835D3E-AF17-4D65-B8D6-48847141FEF1"
+uuid:"5F835D3E-AF17-4D65-B8D6-48847141FEF1",
+visible:false
 },
 {
 formIndex:21,
@@ -156,7 +160,8 @@ uuid:"682E9593-910D-4046-ACEB-F76041F9CE05"
 extendsID:"68BE43BE-D6DC-4055-A71E-E6D9766E940F",
 location:"56,327",
 typeid:7,
-uuid:"6BC00972-E39F-467D-9049-F128223B9E1B"
+uuid:"6BC00972-E39F-467D-9049-F128223B9E1B",
+visible:false
 },
 {
 dataProviderID:"_descTipoPianoWelfare",
@@ -202,7 +207,8 @@ uuid:"8BD651C1-E2AE-442A-BD38-A7E8DD5D6135"
 extendsID:"E5D06CC3-B8A5-4DF3-A0AC-ED5502D37EF9",
 location:"11,327",
 typeid:4,
-uuid:"8C9219DD-07A1-4F7A-AE01-E747930B2BD2"
+uuid:"8C9219DD-07A1-4F7A-AE01-E747930B2BD2",
+visible:false
 },
 {
 formIndex:12,
@@ -218,7 +224,8 @@ uuid:"8E29E73D-B124-4CF5-A6F4-127E4C12BD9F"
 extendsID:"92A47017-4F9B-4340-8182-7BF9BA727AFD",
 location:"56,277",
 typeid:7,
-uuid:"8F94DDBA-13B7-431A-8440-BB83D9320029"
+uuid:"8F94DDBA-13B7-431A-8440-BB83D9320029",
+visible:false
 },
 {
 dataProviderID:"_annoContabile",
@@ -262,7 +269,8 @@ uuid:"D4206DB3-D3D0-4D33-94C1-BFBA0B8C21EB"
 extendsID:"8907A39F-0E4E-4D36-93C2-F854FB28F75B",
 location:"76,277",
 typeid:4,
-uuid:"D62F3DAC-4C6C-46FF-BC3C-A99C988DA84A"
+uuid:"D62F3DAC-4C6C-46FF-BC3C-A99C988DA84A",
+visible:false
 }
 ],
 name:"pvd_selezione_welfare",

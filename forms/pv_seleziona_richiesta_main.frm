@@ -18,9 +18,9 @@ anchors:15,
 items:[
 {
 containsFormID:"5A8234F7-B2E6-418C-9A5A-105CC3D1F8F5",
-location:"60,70",
+location:"52,66",
 relationName:"ditte_to_ditte",
-text:"Richieste multiple",
+text:"Lavoratore",
 typeid:15,
 uuid:"5F50AFBB-3B9D-4687-9F97-94DB900A1022"
 },
@@ -28,7 +28,7 @@ uuid:"5F50AFBB-3B9D-4687-9F97-94DB900A1022"
 containsFormID:"D483AFAC-5A20-4267-970B-C272DD952872",
 location:"10,40",
 relationName:"ditte_to_ditte",
-text:"Richiesta singola",
+text:"Voce",
 typeid:15,
 uuid:"CAA559E7-E4D0-4950-B08A-353A19906EB0"
 }

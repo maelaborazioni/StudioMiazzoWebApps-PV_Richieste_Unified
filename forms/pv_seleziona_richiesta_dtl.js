@@ -693,17 +693,24 @@ function getParams(multiSelect, event)
 {
 	var params 					= vParams || getParentForm(event).getParams();
 		params.idditta 			= idditta;
+		params.idgruppoinstallazione = null;
 		params.periodo  		= globals.toPeriodo(vAnno, vMese);
 		params.tipoconnessione	= globals.getTipoConnessione();
 		params.decorrenza		= null;
-		params.controller		= globals.PV_Controllers.LAVORATORE;
+		params.controller		= globals.PV_Controllers.FILTER;
+		params.type             = globals.PV_Type.VOCE;
 		params.tiporettifica	= globals.TipoRettifica.NESSUNA;
 		params.autosave			= databaseManager.getAutoSave();
 		params.idcategoria      = categoria && categoria.idtabrichiesta;
 		params.gruppolavoratori = gruppo && gruppo.codice;
-		params.user_id          = security.getUserName();
-		params.client_id        = security.getClientID();
+		params.userid           = security.getUserName();
+		params.clientid         = security.getClientID();
+		params.dettaglio        = 0;
 		params.terminato        = 1;
+		params.userid           = security.getUserName(); 
+		params.clientid         = security.getClientID();
+		params.server           = globals.server_db_name;
+		params.databasecliente  = globals.customer_dbserver_name;
 		
 	/**
 	 * Imposta il primo giorno del mese come decorrenza per le richieste
@@ -713,6 +720,8 @@ function getParams(multiSelect, event)
 	if (requestCategory !== globals.CategoriaRichiesta.MONETARIA)
 		params.decorrenza = globals.getFirstDatePeriodo(params.periodo);
 	
+	application.output('Params is : ' + params);
+	application.output('-------------------------------------------------');
 	return params;
 }
 

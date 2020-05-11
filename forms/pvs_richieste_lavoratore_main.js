@@ -272,7 +272,8 @@ function rectifyRequest(requestid)
 		var params              = getParams(fs);
 			params.rettificaper = params.recordid;
 			params.recordid     = null;													// unset the original request's id, just in case
-			
+		
+		/** @type {JSForm} */
 		var editForm = getDetailForm(params, true, request.idlavoratorerichiesta);
 		if(!editForm)
 			throw new Error("Error while creating the request form, params: " + params.toString());
@@ -379,7 +380,7 @@ function restoreRequest(requestid)
 function editRequest(request)
 {
 	var params = getParams(foundset);
-	
+	/** @type {JSForm} */
 	var form = getDetailForm(params, true, request ? request.idlavoratorerichiesta : idlavoratorerichiesta);
 	if(!form)
 		return;
@@ -388,7 +389,7 @@ function editRequest(request)
 	
 	databaseManager.setAutoSave(false);
 	
-	globals.ma_utl_setStatus(globals.Status.EDIT, form.name, params.requiredfields);
+	globals.ma_utl_setStatus(globals.Status.EDIT, form.name, params['requiredfields']);
 	globals.ma_utl_showFormInDialog(form.name, title);
 }
 
@@ -400,6 +401,7 @@ function updateDetail()
 	_super.updateDetail();
 	
 	var params = getParams(foundset);
+	/** @type {JSForm} */
 	var form = getDetailForm(params, false, params.recordid || idlavoratorerichiesta);
 	if(!form)
 		return;
@@ -539,6 +541,7 @@ function getParams(fs)
 	
 	var params 					 = _super.getParams(fs);
 		params.idditta 			 = globals.convert_DitteSede2Cliente(fs.idditta);
+		params.idgruppoinstallazione = null;
 		params.periodo			 = fs.periodocedolino;
 		params.requestcode		 = fs.lavoratori_richieste_to_tab_richiestedettaglio.codice;
 		params.requestid		 = fs.idtabrichiestadettaglio;
@@ -547,7 +550,8 @@ function getParams(fs)
 		params.rulecode			 = fs.lavoratori_richieste_to_tab_richiestedettagliocondizioni && fs.lavoratori_richieste_to_tab_richiestedettagliocondizioni.codice;
 		params.iddipendenti		 = fs.lavoratori_richieste_to_lavoratori && [fs.lavoratori_richieste_to_lavoratori.idlavoratore_cliente];
 		params.decorrenza		 = fs.decorrenza;
-		params.controller		 = globals.PV_Controllers.LAVORATORE;
+		params.controller		 = globals.PV_Controllers.FORM;
+		params.type              = globals.PV_Type.LAVORATORE;
 		params.ammettedecorrenza = fs.lavoratori_richieste_to_tab_richiestedettaglio.ammettedecorrenza;
 		params.recordid			 = fs.tiporettifica === globals.TipoRettifica.MODIFICA ? fs.lavoratori_richieste_to_lavoratori_richieste_rettifiche.idlavoratorerichiesta : fs.idlavoratorerichiesta;
 		params.autosave			 = databaseManager.getAutoSave();
@@ -584,7 +588,7 @@ function deleteAll()
 		return true;
 
 	var sql     = 'DELETE FROM ' + table.getSQLName() + ' WHERE ' + pk + ' IN (' + ids.join(',') + ')';
-	var success = plugins.rawSQL.executeSQL(table.getServerName(), table.getSQLName(), sql, []);
+	var success = plugins.rawSQL.executeSQL(table.getServerName(),sql, []);
 	if (success)
 	{
 		refreshRequests();

@@ -1,23 +1,4 @@
 /**
- * Returns an object containing the form specification and the exceptions, i.e.
- * records for which some fields must be differently handled.<br/>
- * It basically look for any entity in for which some field is either not enabled 
- * or not visible.
- * 
- * @properties={typeid:24,uuid:"BECB1DBF-22E1-41F9-8C56-01756F2815C3"}
- */
-function performRequest(params, requestType)
-{
-	var wsController = 'Variazioni';
-	var wsAction = requestType === globals.TipoRichiesta.SINGOLA ? 'RichiestaSingola' : 'RichiestaMultipla';
-	
-	var url = [globals.WS_PV_URL, wsController, wsAction].join('/');
-	var response = globals.getWebServiceResponse(url, params);
-	
-	return response;
-}
-
-/**
  * @properties={typeid:24,uuid:"11D7BE29-42FA-467F-986C-DB479F73B4C2"}
  * @AllowToRunInFind
  */
@@ -101,16 +82,14 @@ function openGestioneRichieste()
 }
 
 /**
- * @return {{ rulesperemployee, rulesspecification }}
+ * @return { {ReturnValue: Object, StatusCode: Number, Message: String, RulesPerRequest : Object, Rules : Object, RulesSpecification : Object} }
  * 
  * @properties={typeid:24,uuid:"F9BE4A1C-3B86-4B7F-916A-C4D4F7D0B045"}
  */
 function FiltraRegoleLavoratori(params)
 {
-	var url = [globals.WS_PV_URL, globals.PV_Controllers.LAVORATORE, 'FiltraRegoleLavoratori'].join('/');
-	/** @type {{ rulesperemployee, rulesspecification }} */
-	var response = getWebServiceResponse(url, params);
-	
+	var url = [globals.WS_PV, globals.PV_Controllers.FILTER, 'FilterRulesByWorker'].join('/');
+	var response = getWebServiceVariationResponse(url, params);	
 	return response;
 }
 
@@ -174,9 +153,11 @@ function costruisciRiepilogoAnomalieRichieste(arrLavoratoriRichieste)
     	if(arrLavoratoriRichieste[i])
     	{
     		var obj = getInfoFromWelfareRichiesta(arrLavoratoriRichieste[i])
-    		var currRow = [obj['id'],obj['codice'],obj['nominativo'],obj['tipo_richiesta'],obj['quantita'],obj['base'],obj['importo'],0];
-    	
-    		ds.addRow(currRow);
+    		if(obj)
+    		{
+    			var currRow = [obj['id'],obj['codice'],obj['nominativo'],obj['tipo_richiesta'],obj['quantita'],obj['base'],obj['importo'],0];
+    	   		ds.addRow(currRow);
+    		}
     	}
     }
     
@@ -249,22 +230,25 @@ function getInfoFromWelfareRichiesta(idWelfareLavoratoreRichiesta)
 		fs.idwelfarelavoratorerichiesta = idWelfareLavoratoreRichiesta;
 		if(fs.search())
 		{
-			var idLavoratore = globals.ma_utl_lav_toCliente(fs.welfare_lavoratori_richieste_to_lavoratori_richieste.idlavoratore);
+			if(fs.welfare_lavoratori_richieste_to_lavoratori_richieste && fs.welfare_lavoratori_richieste_to_lavoratori_richieste.getSize())
+			{
+				var idLavoratore = globals.ma_utl_lav_toCliente(fs.welfare_lavoratori_richieste_to_lavoratori_richieste.idlavoratore);
 						
-			var obj = {
-				id : idWelfareLavoratoreRichiesta,
-				codice : globals.getCodLavoratore(idLavoratore),
-				nominativo : globals.getNominativo(idLavoratore),
-				quantita : fs.quantita,
-				base : fs.base,
-				importo : fs.importo,
-				tipo_richiesta : getDescrizioneTracciatoConversione(fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaredittatracciato
-					                                                ,fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaretipopiano
-																	,fs.codicetracciato
-																	,fs.codicetracciatodettaglio)
+				var obj = {
+					id : idWelfareLavoratoreRichiesta,
+					codice : globals.getCodLavoratore(idLavoratore),
+					nominativo : globals.getNominativo(idLavoratore),
+					quantita : fs.quantita,
+					base : fs.base,
+					importo : fs.importo,
+					tipo_richiesta : getDescrizioneTracciatoConversione(fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaredittatracciato
+						                                                ,fs.welfare_lavoratori_richieste_to_welfare_ditte_richieste.idtabwelfaretipopiano
+																		,fs.codicetracciato
+																		,fs.codicetracciatodettaglio)
+				}
+				
+				return obj;
 			}
-			
-			return obj;
 		}
 	}
 	

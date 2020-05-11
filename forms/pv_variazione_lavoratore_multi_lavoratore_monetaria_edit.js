@@ -103,22 +103,51 @@ function setCalculations(dataSource, specification, params)
 			
 			for (var f in specification)
 			{
+				/** @type {
+				 * 			{ 
+				 * 				Code: String, 
+				 * 				Name: String, 
+				 * 				Format: String, 
+				 * 				Size: Number, 
+				 * 				Lines: Number, 
+				 * 				Enabled: Boolean, 
+				 * 				Visible: Boolean, 
+				 * 				Order: Number, 
+				 * 				Group: Number, 
+				 * 				Type: String, 
+				 * 				DataProvider: String, 
+				 * 				Formula: String, 
+				 * 				DisplayType: Number, 
+				 * 				Regex: String, 
+				 * 				OnAction: { name: String, code: String }, 
+				 * 				LookupParams: String, 
+				 * 				FilterQuery: String, 
+				 * 				FilterArgs: String,
+				 * 				Relation: String,
+				 * 				ShownDataProvider: String, 
+				 *              Tooltip: String,
+				 *              HasDefault: Boolean,
+				 *              DependsOn: String,
+				 *              ContentDataProvider: String
+				 * 			}
+				 * 		} 
+				 */
 				var field   = specification[f];
-				var formula = field.formula;
+				var formula = field.Formula;
 				
 				// If computed, create a new calculation
-				switch(field.displaytype)
+				switch(field.DisplayType)
 				{
-					case globals.DisplayType.COMPUTED:
-						if(!calculationSource[field.dataprovider])
+					case scopes.richieste.DisplayType.COMPUTED:
+						if(!calculationSource[field.DataProvider])
 						{
-							calculationSource[field.dataprovider] = "function " + field.dataprovider + "()\
+							calculationSource[field.DataProvider] = "function " + field.DataProvider + "()\
 																	 {\
 																		 switch(idregola)\
 																		 {\n";
 						}
 						
-						calculationSource[field.dataprovider]    += "		case " + s + ":\
+						calculationSource[field.DataProvider]    += "		case " + s + ":\
 																				return " + formula + "; break;\n";
 						
 						break;
@@ -163,26 +192,56 @@ function setCalculationsDetail(dataSource, specification, params)
 		
 		for(var s in rulesSpecification)
 		{
+			
 			specification = rulesSpecification[s];
 			
 			for (var f in specification)
 			{
+				/** @type {
+				 * 			{ 
+				 * 				Code: String, 
+				 * 				Name: String, 
+				 * 				Format: String, 
+				 * 				Size: Number, 
+				 * 				Lines: Number, 
+				 * 				Enabled: Boolean, 
+				 * 				Visible: Boolean, 
+				 * 				Order: Number, 
+				 * 				Group: Number, 
+				 * 				Type: String, 
+				 * 				DataProvider: String, 
+				 * 				Formula: String, 
+				 * 				DisplayType: Number, 
+				 * 				Regex: String, 
+				 * 				OnAction: { name: String, code: String }, 
+				 * 				LookupParams: String, 
+				 * 				FilterQuery: String, 
+				 * 				FilterArgs: String,
+				 * 				Relation: String,
+				 * 				ShownDataProvider: String, 
+				 *              Tooltip: String,
+				 *              HasDefault: Boolean,
+				 *              DependsOn: String,
+				 *              ContentDataProvider: String
+				 * 			}
+				 * 		} 
+				 */
 				var field   = specification[f];
-				var formula = field.formula;
+				var formula = field.Formula;
 				
 				// If computed, create a new calculation
-				switch(field.displaytype)
+				switch(field.DisplayType)
 				{
-					case globals.DisplayType.COMPUTED:
-						if(!calculationSource[field.dataprovider])
+					case scopes.richieste.DisplayType.COMPUTED:
+						if(!calculationSource[field.DataProvider])
 						{
-							calculationSource[field.dataprovider] = "function " + field.dataprovider + "()\
+							calculationSource[field.DataProvider] = "function " + field.DataProvider + "()\
 																	 {\
 																		 switch(idregola)\
 																		 {\n";
 						}
 						
-						calculationSource[field.dataprovider]    += "		case " + s + ":\
+						calculationSource[field.DataProvider]    += "		case " + s + ":\
 																				return " + formula + "; break;\n";
 						
 						break;
@@ -218,11 +277,11 @@ function getData(specification, params, data)
 		return data;
 	
 	var response = globals.FiltraRegoleLavoratori(params);
-	if(!response || !response.rulesperemployee || !response.rulesspecification)
+	if(!response || !response.RulesPerEmployee || !response.RulesSpecification)
 	   logAndShowGenericError(new Error('getData: errore durante la chiamata al web service'));
 	 	
-	var rules            = response.rulesspecification;
-	var rulesPerEmployee = response.rulesperemployee;
+	var rules            = response.RulesSpecification;
+	var rulesPerEmployee = response.RulesPerEmployee;
 	
 	params.rulesObject = response;
 	
@@ -254,14 +313,14 @@ function getData(specification, params, data)
 					{
 						switch(field.displaytype)
 						{
-							case globals.DisplayType.FIXED:
+							case scopes.richieste.DisplayType.FIXED:
 								if(field.type === globals.FieldType.NUMBER)
 									value = globals.ma_utl_parseDecimalString(field.formula);
 								else
 									value = field.formula;
 								break;
 								
-							case globals.DisplayType.COMPUTED:
+							case scopes.richieste.DisplayType.COMPUTED:
 								value = globals.getDefaultValue(globals.fieldTypeToJSColumn(field.type));
 								break;
 						}
