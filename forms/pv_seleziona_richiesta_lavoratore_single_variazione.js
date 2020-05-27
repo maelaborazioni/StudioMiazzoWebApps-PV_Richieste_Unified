@@ -525,7 +525,9 @@ function getParams(multiSelect, event)
 	
 	var disabledElements = getDisabledEmployees(params.idditta, params.periodo, params.requestid);
 	
-	if(event.getFormName() == forms.pv_seleziona_richiesta_single_lavoratore_single_variazione.controller.getName())
+	if(event.data && event.data.uniqueidlavoratore)
+		params.iddipendenti = [event.data.uniqueidlavoratore];	
+	else if(event.getFormName() == forms.pv_seleziona_richiesta_single_lavoratore_single_variazione.controller.getName())
 	{
 		params.iddipendenti = [_to_sec_user$user_id.sec_user_to_sec_user_to_lavoratori.idlavoratore];
 		if(disabledElements.length && disabledElements.indexOf(params.iddipendenti[0]) != -1)

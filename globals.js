@@ -82,14 +82,14 @@ function openGestioneRichieste()
 }
 
 /**
- * @return { {ReturnValue: Object, StatusCode: Number, Message: String, RulesPerRequest : Object, Rules : Object, RulesSpecification : Object} }
+ * @return { {ReturnValue: Object, StatusCode: Number, Message: String, RulesPerEmployee : Object, RulesSpecification : Object} }
  * 
  * @properties={typeid:24,uuid:"F9BE4A1C-3B86-4B7F-916A-C4D4F7D0B045"}
  */
 function FiltraRegoleLavoratori(params)
 {
 	var url = [globals.WS_PV, globals.PV_Controllers.FILTER, 'FilterRulesByWorker'].join('/');
-	var response = getWebServiceVariationResponse(url, params);	
+	var response = getWebServiceRuleVariationResponse(url, params);	
 	return response;
 }
 
