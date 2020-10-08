@@ -276,6 +276,7 @@ function getData(specification, params, data)
 	if(params.ruleid && params.ruleid > 0)
 		return data;
 	
+	/** @type {{ ReturnValue: Object, StatusCode: Number, Message: String, RulesPerEmployee : Object, RulesSpecification : Object }} */
 	var response = globals.FiltraRegoleLavoratori(params);
 	if(!response || !response.RulesPerEmployee || !response.RulesSpecification)
 	   logAndShowGenericError(new Error('getData: errore durante la chiamata al web service'));
